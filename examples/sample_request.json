@@ -1,0 +1,5 @@
+{
+  "tickers": ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"],
+  "weights": [0.25, 0.20, 0.20, 0.20, 0.15],
+  "analysis_date": "2024-01-15T00:00:00Z"
+}

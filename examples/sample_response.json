@@ -1,0 +1,111 @@
+{
+  "portfolio_id": "550e8400-e29b-41d4-a716-446655440000",
+  "portfolio": {
+    "tickers": ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"],
+    "weights": {
+      "AAPL": 0.25,
+      "GOOGL": 0.20,
+      "MSFT": 0.20,
+      "AMZN": 0.20,
+      "TSLA": 0.15
+    },
+    "analysis_date": "2024-01-15T00:00:00"
+  },
+  "risk_metrics": {
+    "var_95": 0.032,
+    "var_99": 0.051,
+    "cvar_95": 0.045,
+    "cvar_99": 0.068,
+    "sharpe_ratio": 1.15,
+    "max_drawdown": 18.5,
+    "volatility": 0.22,
+    "portfolio_value_timeseries": [100.0, 101.2, 99.8, 102.5, 98.3, 105.2]
+  },
+  "stress_test_results": {
+    "financial_crisis_2008": {
+      "scenario": "financial_crisis_2008",
+      "start_date": "2008-09-15T00:00:00",
+      "end_date": "2009-03-09T00:00:00",
+      "peak_drawdown": 42.3,
+      "recovery_days": 1150,
+      "volatility_during_stress": 0.38,
+      "portfolio_value_at_peak_loss": 57.7
+    },
+    "covid_19_crash": {
+      "scenario": "covid_19_crash",
+      "start_date": "2020-02-19T00:00:00",
+      "end_date": "2020-03-23T00:00:00",
+      "peak_drawdown": 28.7,
+      "recovery_days": 145,
+      "volatility_during_stress": 0.31,
+      "portfolio_value_at_peak_loss": 71.3
+    },
+    "custom_volatility_shock": {
+      "scenario": "custom_volatility_shock",
+      "start_date": "2022-01-03T00:00:00",
+      "end_date": "2022-02-01T00:00:00",
+      "peak_drawdown": 15.2,
+      "recovery_days": null,
+      "volatility_during_stress": 0.25,
+      "portfolio_value_at_peak_loss": 84.8
+    }
+  },
+  "risk_attributions": [
+    {
+      "ticker": "AAPL",
+      "risk_contribution": 28.5,
+      "marginal_contribution": 0.095,
+      "explanation": "AAPL has a portfolio weight of 25.0% and contributes 28.5% to portfolio risk, with positive correlation to the portfolio."
+    },
+    {
+      "ticker": "GOOGL",
+      "risk_contribution": 22.3,
+      "marginal_contribution": 0.074,
+      "explanation": "GOOGL has a portfolio weight of 20.0% and contributes 22.3% to portfolio risk, with positive correlation to the portfolio."
+    },
+    {
+      "ticker": "MSFT",
+      "risk_contribution": 20.1,
+      "marginal_contribution": 0.067,
+      "explanation": "MSFT has a portfolio weight of 20.0% and contributes 20.1% to portfolio risk, with positive correlation to the portfolio."
+    },
+    {
+      "ticker": "AMZN",
+      "risk_contribution": 18.7,
+      "marginal_contribution": 0.062,
+      "explanation": "AMZN has a portfolio weight of 20.0% and contributes 18.7% to portfolio risk, with positive correlation to the portfolio."
+    },
+    {
+      "ticker": "TSLA",
+      "risk_contribution": 10.4,
+      "marginal_contribution": 0.035,
+      "explanation": "TSLA has a portfolio weight of 15.0% and contributes 10.4% to portfolio risk, with positive correlation to the portfolio."
+    }
+  ],
+  "structural_insights": {
+    "concentration_risk": {
+      "top_3_weight": 0.65,
+      "top_5_weight": 1.0,
+      "herfindahl_index": 0.195,
+      "max_weight": 0.25
+    },
+    "sector_diversification": null,
+    "correlation_risk": 0.68,
+    "insights": [
+      "Moderate concentration in top 3 holdings (65.0%)",
+      "High average correlation (0.68) suggests limited diversification benefit"
+    ]
+  },
+  "execution_summary": {
+    "portfolio_id": "550e8400-e29b-41d4-a716-446655440000",
+    "analysis_date": "2024-01-15T00:00:00",
+    "agents_executed": [
+      "data_fetch",
+      "stress_test",
+      "explainability",
+      "recommendation"
+    ],
+    "agents_failed": [],
+    "total_execution_time": 4.2
+  }
+}
