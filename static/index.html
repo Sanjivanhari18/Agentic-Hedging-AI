@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Risk Intelligence — Data Extraction</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Portfolio Risk Intelligence</h1>
+      <p class="tagline">OCR data extraction from PDFs &amp; screenshots</p>
+      <div class="nav">
+        <a href="/" class="nav-link active">Extract data</a>
+        <a href="/docs" class="nav-link" target="_blank">API docs</a>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="upload-section card">
+        <h2>Upload file</h2>
+        <p class="hint">Upload a PDF or an image (screenshot) to extract text and tables via OCR. Parsed data is returned as a table (DataFrame).</p>
+        <div class="upload-tabs">
+          <button type="button" class="tab active" data-mode="pdf">PDF</button>
+          <button type="button" class="tab" data-mode="image">Image / Screenshot</button>
+        </div>
+        <form id="upload-form" class="upload-form">
+          <input type="file" id="file-input" accept=".pdf" required />
+          <div class="upload-actions">
+            <button type="submit" class="btn btn-primary" id="submit-btn">Extract</button>
+            <span class="status" id="status"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="results-section card" id="results-section" hidden>
+        <h2>Extraction result</h2>
+        <div class="result-meta" id="result-meta"></div>
+        <div class="raw-text-wrap" id="raw-text-wrap">
+          <h3>Raw text</h3>
+          <pre id="raw-text"></pre>
+        </div>
+        <div class="table-wrap" id="table-wrap">
+          <h3>Parsed table (DataFrame)</h3>
+          <div class="table-scroll">
+            <table id="data-table">
+              <thead id="table-head"></thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="error-section card" id="error-section" hidden>
+        <h2>Error</h2>
+        <pre id="error-message"></pre>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Full-stack Portfolio Risk Intelligence — Extract data from documents, then run risk analysis via API.</p>
+    </footer>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,16 +1,18 @@
-"""API routes for portfolio risk analysis."""
+"""API routes for portfolio risk analysis and data extraction."""
 
 from typing import Dict, Any
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, UploadFile, File
 from app.models.portfolio import PortfolioInput
 from app.coordinator.coordinator import AICoordinator
 from app.risk_engine.engine import RiskEngine
+from app.services.extraction import ExtractionService, ExtractionResult
 
 router = APIRouter()
 
 # Initialize coordinator and risk engine (in production, use dependency injection)
 coordinator = AICoordinator()
 risk_engine = RiskEngine()
+extraction_service = ExtractionService()
 
 # In-memory storage for reports (TODO: Replace with database)
 reports_store: Dict[str, Dict[str, Any]] = {}
@@ -101,6 +103,67 @@ async def analyze_portfolio(portfolio_input: PortfolioInput) -> Dict[str, Any]:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Analysis failed: {str(e)}"
         )
+
+
+# ---------- Data extraction (OCR) endpoints ----------
+
+
+@router.post("/extract/pdf", status_code=status.HTTP_200_OK)
+async def extract_from_pdf(file: UploadFile = File(..., description="PDF file")) -> Dict[str, Any]:
+    """
+    Extract text and tables from a PDF via OCR and native extraction.
+    Returns raw text and parsed data as a table (DataFrame) in JSON.
+    """
+    if not file.filename or not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File must be a PDF (.pdf)",
+        )
+    try:
+        contents = await file.read()
+        result = extraction_service.extract_from_pdf(contents)
+        return result.to_dict()
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Extraction failed: {str(e)}",
+        ) from e
+
+
+@router.post("/extract/image", status_code=status.HTTP_200_OK)
+async def extract_from_image(
+    file: UploadFile = File(..., description="Image file (screenshot, PNG, JPEG, etc.)"),
+) -> Dict[str, Any]:
+    """
+    Extract text from an image (screenshot) via OCR.
+    Returns raw text and parsed data as a table (DataFrame) in JSON.
+    """
+    allowed = (".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".tiff", ".tif")
+    if not file.filename or not file.filename.lower().endswith(allowed):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="File must be an image (e.g. .png, .jpg)",
+        )
+    try:
+        contents = await file.read()
+        result = extraction_service.extract_from_image(contents)
+        return result.to_dict()
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Extraction failed: {str(e)}",
+        ) from e
+
+
+@router.get("/extract/health")
+async def extraction_health() -> Dict[str, Any]:
+    """Check if OCR (Tesseract) is available for extraction."""
+    if extraction_service.check_ocr_available():
+        return {"status": "ok", "ocr": "available"}
+    return {"status": "degraded", "ocr": "unavailable", "detail": "Tesseract not found or not working"}
+
+
+# ---------- Portfolio analysis ----------
 
 
 @router.get("/portfolio/report/{portfolio_id}")
