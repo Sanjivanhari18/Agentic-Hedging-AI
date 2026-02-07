@@ -1,0 +1,52 @@
+# ============================================================
+# Agentic Trading Intelligence Platform - Dependencies
+# ============================================================
+# All tools are FREE and open-source. No paid subscriptions.
+# ============================================================
+
+# --- Core Data Science ---
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# --- PDF Processing ---
+pdfplumber>=0.9.0
+
+# --- Market Data ---
+yfinance>=0.2.28
+
+# --- Statistical Analysis ---
+ruptures>=1.1.8                  # Change point detection (Pelt algorithm)
+statsmodels>=0.14.0              # Advanced statistical modeling
+hmmlearn>=0.3.0                  # Hidden Markov Models for regime detection
+hdbscan>=0.8.33                  # Density-based clustering
+
+# --- Visualization ---
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# --- Web Application ---
+streamlit>=1.28.0                # Frontend UI
+fastapi>=0.104.0                 # Backend API
+uvicorn>=0.24.0                  # ASGI server
+python-multipart>=0.0.6          # File uploads for FastAPI
+
+# --- LLM & AI Agents (FREE) ---
+langchain>=0.1.0                 # Agent framework
+langchain-groq>=0.1.0            # Groq LLM (FREE tier: Llama 3, Mixtral)
+langchain-core>=0.1.0            # LangChain core tools
+langchain-community>=0.0.10      # Community integrations
+langchain-text-splitters>=0.0.1  # Text chunking for RAG
+chromadb>=0.4.0                  # Vector store for RAG (FREE, local)
+
+# --- ML/DL Models ---
+xgboost>=2.0.0                   # Gradient boosting for recommendations
+tensorflow>=2.15.0               # LSTM trend prediction
+
+# --- Utilities ---
+python-dateutil>=2.8.2
+pytz>=2023.3
+python-dotenv>=1.0.0             # Load .env files
+httpx>=0.25.0                    # HTTP client
